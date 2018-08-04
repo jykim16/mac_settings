@@ -1,0 +1,17 @@
+[user]
+	name = Jonathan Kim
+	email = jykim16@gmail.com
+[credential]
+	helper = osxkeychain
+[core]
+	autocrlf = false
+	safecrlf = true
+	editor = vim
+[alias]
+	ch = checkout
+	co = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p

@@ -32,6 +32,7 @@ set background=light
 :set ttymouse=xterm2
 set foldmethod=indent
 set foldlevel=99
+set backspace=indent,eol,start
 au BufNewFile,BufRead *.js, *.html, *.css
     \set tabstop=2
     \set softtabstop=2
