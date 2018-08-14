@@ -11,6 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 "Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,6 +56,7 @@ set mouse=r
 autocmd InsertEnter * highlight  CursorLine ctermbg=Red ctermfg=Black
 " Revert Color to default when leaving Insert Mode
 autocmd InsertLeave * highlight  CursorLine ctermbg=None ctermfg=None
+let mapleader = ","
 
 " ---Language---
 " python
@@ -79,6 +81,8 @@ map <C-t> :NERDTreeToggle<CR>
 " AUTO-COMPLETE preferences
 " auto-complete window for YouCompleteMe disappears
 let g:ycm_autoclose_preview_window_after_completion=1
+nnoremap g] :YcmCompleter GoTo<CR>
+nnoremap gR :YcmCompleter GoToReferences<CR>
 
 " VIM-MARKDOWN-PREVIEW preferences
 " for vim-markdown-preview default browser and md visual with Grip
@@ -88,7 +92,10 @@ let vim_markdown_preview_browser='Google Chrome'
 " FZF preferences
 " After install fzf with brew, enable fzf fuzzy search on vim
 set rtp+=/usr/local/opt/fzf
-
+let g:fzf_files_options =
+  \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+nmap <Leader>t :Files<CR>
+nmap <Leader>f :Ag<CR>
 
 "Specific to home mac
 :set mouse=n
