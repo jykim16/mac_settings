@@ -1,5 +1,4 @@
-set nocompatible              " be iMproved, required
-
+set nocompatible  " be iMproved, required
 
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -9,9 +8,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-fugitive'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
 " All of your Plugins must be added before the following line
@@ -23,31 +21,83 @@ filetype plugin indent on    " required
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " Put your non-Plugin stuff after this line
-:set number
-:set relativenumber
-:set hlsearch
+
+" SETTINGS
+
+" ---view---
+set number
+set relativenumber
+"enable folding by tab spacing
+set foldmethod=indent
+set foldlevelstart=99
+"matching parens colorscheme
+hi MatchParen cterm=bold ctermbg=none ctermfg=Magenta
+" visual selection color
+hi Visual cterm=bold ctermbg=Black ctermfg=none
+"show cursor line for current window
+set cursorline
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
 syntax enable
 set background=light
+set showcmd
+":set hlsearch
+"search without case match unless capitalized
+set smartcase
+set ignorecase
+set mouse=r
+":set mouse=n
+:set ttymouse=xterm2
+" Change Color when entering Insert Mode
+autocmd InsertEnter * highlight  CursorLine ctermbg=Red ctermfg=Black
+" Revert Color to default when leaving Insert Mode
+autocmd InsertLeave * highlight  CursorLine ctermbg=None ctermfg=None
+
+" ---Language---
+" python
+set ts=4 sw=4
+set expandtab
+
+" web languages
+au BufNewFile,BufRead *.js, *.html, *.css
+    \set tabstop=2
+    \set softtabstop=2
+    \set shiftwidth=2
+
+" ---Plugin Preferences---
+" NERDTREE preferences
+"show NERDTREE if enter vim without file
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-t> :NERDTreeToggle<CR>
+
+
+" AUTO-COMPLETE preferences
+" auto-complete window for YouCompleteMe disappears
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" VIM-MARKDOWN-PREVIEW preferences
+" for vim-markdown-preview default browser and md visual with Grip
+let vim_markdown_preview_github=1
+let vim_markdown_preview_browser='Google Chrome'
+
+" FZF preferences
+" After install fzf with brew, enable fzf fuzzy search on vim
+set rtp+=/usr/local/opt/fzf
+
+
+"Specific to home mac
 :set mouse=n
 :set ttymouse=xterm2
-set foldmethod=indent
-set foldlevel=99
-set backspace=indent,eol,start
-"au BufNewFile,BufRead *.js, *.html, *.css
-"    \set tabstop=2
-"    \set softtabstop=2
-"    \set shiftwidth=2
-set encoding=utf-8
 " auto-complete window for YouCompleteMe disappears
 let g:ycm_autoclose_preview_window_after_completion=1
 "ctrl-t open nerdtree
-map <C-t> :NERDTreeToggle<CR>
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 " for vim-markdown-preview default browser and md visual with Grip
-let vim_markdown_preview_github=1
-let vim_markdown_preview_browser='Google Chrome'
-" After install fzf with brew, enable fzf fuzzy search on vim
-set rtp+=/usr/local/opt/fzf
