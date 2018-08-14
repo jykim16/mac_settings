@@ -9,10 +9,10 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -33,10 +33,10 @@ set background=light
 set foldmethod=indent
 set foldlevel=99
 set backspace=indent,eol,start
-au BufNewFile,BufRead *.js, *.html, *.css
-    \set tabstop=2
-    \set softtabstop=2
-    \set shiftwidth=2
+"au BufNewFile,BufRead *.js, *.html, *.css
+"    \set tabstop=2
+"    \set softtabstop=2
+"    \set shiftwidth=2
 set encoding=utf-8
 " auto-complete window for YouCompleteMe disappears
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -46,3 +46,8 @@ python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
+" for vim-markdown-preview default browser and md visual with Grip
+let vim_markdown_preview_github=1
+let vim_markdown_preview_browser='Google Chrome'
+" After install fzf with brew, enable fzf fuzzy search on vim
+set rtp+=/usr/local/opt/fzf
