@@ -12,6 +12,9 @@ Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'junegunn/fzf.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -50,11 +53,11 @@ set showcmd
 set smartcase
 set ignorecase
 "terminal controls mouse selects
-set mouse=r
+"set mouse=r
 "resize windows with mouse
 "set mouse=n
 "cursor selects vim position
-"set mouse=a
+set mouse=a
 :set ttymouse=xterm2
 " Change Color when entering Insert Mode
 autocmd InsertEnter * highlight  CursorLine ctermbg=Red ctermfg=Black
@@ -101,10 +104,17 @@ let g:fzf_files_options =
 nmap <Leader>t :Files<CR>
 nmap <Leader>f :Ag<CR>
 nmap <Leader>h :History<CR>
+nmap <Leader>b :Buffers<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
+
+" VIM-GITGUTTER preferences
+" use :GitGutterLineHighlightsToggle to highlight
+nmap <Leader>g :GitGutterToggle<CR>
+" update sign when saving
+autocmd BufWritePost * GitGutter
 
 "Specific to home mac
 :set mouse=n
