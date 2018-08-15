@@ -8,7 +8,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'junegunn/fzf.vim'
@@ -49,8 +49,12 @@ set showcmd
 "search without case match unless capitalized
 set smartcase
 set ignorecase
+"terminal controls mouse selects
 set mouse=r
-":set mouse=n
+"resize windows with mouse
+"set mouse=n
+"cursor selects vim position
+"set mouse=a
 :set ttymouse=xterm2
 " Change Color when entering Insert Mode
 autocmd InsertEnter * highlight  CursorLine ctermbg=Red ctermfg=Black
@@ -96,10 +100,14 @@ let g:fzf_files_options =
   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 nmap <Leader>t :Files<CR>
 nmap <Leader>f :Ag<CR>
+nmap <Leader>h :History<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 "Specific to home mac
 :set mouse=n
-:set ttymouse=xterm2
 " auto-complete window for YouCompleteMe disappears
 let g:ycm_autoclose_preview_window_after_completion=1
 "ctrl-t open nerdtree
