@@ -8,7 +8,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'junegunn/fzf.vim'
