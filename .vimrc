@@ -1,3 +1,4 @@
+"install latest vim with `brew install vim --with-override-system-vi`
 set nocompatible  " be iMproved, required
 
 "---Vundle Plugins---
@@ -23,15 +24,25 @@ set nocompatible  " be iMproved, required
         " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
 " ---Language---
-    " python
-        set ts=4 sw=4
+    " default
+        "expands tab to spaces
         set expandtab
+        set tabstop=4
+        set softtabstop=4
+        set shiftwidth=4
+
+    " python
+        "this is default
+        "autocmd FileType python
+        "\ set tabstop=4 |
+        "\ set softtabstop=4 |
+        "\ set shiftwidth=4
 
     " web languages
-        au BufNewFile,BufRead *.js, *.html, *.css
-        \set tabstop=2
-        \set softtabstop=2
-        \set shiftwidth=2
+        autocmd BufNewFile,BufRead *.js,*.jsx,*.html,*.css
+        \ set tabstop=2 |
+        \ set softtabstop=2 |
+        \ set shiftwidth=2
 
 " ---View---
     " visual
@@ -67,6 +78,8 @@ set nocompatible  " be iMproved, required
         " use of bright ANSI Colors
         "set background=dark
     " cursor and mouse
+        " allows backspace over anything in insert mode
+        set backspace=2
         "show cursor line for current window
         set cursorline
         augroup CursorLine
