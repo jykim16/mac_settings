@@ -37,6 +37,8 @@ set nocompatible  " be iMproved, required
         "\ set tabstop=4 |
         "\ set softtabstop=4 |
         "\ set shiftwidth=4
+        " run python interpreter on selected lines
+        xnoremap <leader>p :w !python<cr>
 
     " web languages
         autocmd BufNewFile,BufRead *.js,*.jsx,*.html,*.css
@@ -116,6 +118,12 @@ set nocompatible  " be iMproved, required
         nnoremap <C-j> :m .+1<CR>==
         " move current line down one line
         nnoremap <C-k> :m .-2<CR>==
+        " if +clipboard then copy to mac clipboard in visual selection
+        vmap <C-y> "*y
+        " if +clipboard then copy current word to mac clipboard
+        nnoremap <C-y> "*yiw
+        " if +clipboard then paste from mac clipboard from normal mode
+        nnoremap <C-p> "*p
 
 " ---Plugin Preferences---
     " NERDTREE preferences
@@ -123,8 +131,8 @@ set nocompatible  " be iMproved, required
         autocmd StdinReadPre * let s:std_in=1
         autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
         autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-        map <C-t> :NERDTreeToggle<CR>
-
+        " use :NERDTreeToggle if don't want to go to current file
+        map <C-t> :NERDTreeFind <CR>
 
     " AUTO-COMPLETE preferences
         " auto-complete window for YouCompleteMe disappears
@@ -150,6 +158,8 @@ set nocompatible  " be iMproved, required
           \ 'ctrl-t': 'tab split',
           \ 'ctrl-s': 'split',
           \ 'ctrl-v': 'vsplit' }
+        " Ag only searches file contents, not file names
+        command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
     " VIM-GITGUTTER preferences
         " use :GitGutterLineHighlightsToggle to highlight
@@ -161,9 +171,3 @@ set nocompatible  " be iMproved, required
 :set mouse=n
 " auto-complete window for YouCompleteMe disappears
 let g:ycm_autoclose_preview_window_after_completion=1
-"ctrl-t open nerdtree
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
-set laststatus=2 " Always display the statusline in all windows
-" for vim-markdown-preview default browser and md visual with Grip
