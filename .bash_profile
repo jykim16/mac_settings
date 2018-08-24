@@ -13,8 +13,4 @@ export WORKON_HOME=~/.virtualenvs
 export FZF_DEFAULT_OPTS="--reverse --inline-info --height 50%"
 source ~/bin/fzf.sh
 
-#powerline-daemon -q
-#POWERLINE_BASH_CONTINUATION=1
-#POWERLINE_BASH_SELECT=1
-#. /anaconda3/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
 export PATH=$PATH:/anaconda3/bin:~/bin:~/bin/flutter/bin

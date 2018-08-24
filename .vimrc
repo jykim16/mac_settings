@@ -126,3 +126,16 @@ python3 powerline_setup()
 python3 del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 " for vim-markdown-preview default browser and md visual with Grip
+
+
+" OR ELSE use the filetype mechanism to select automatically...
+filetype on
+augroup PatchDiffHighlight
+    autocmd!
+    autocmd FileType  diff   syntax enable
+augroup END
+
+
+" highlight the 81st column of wide lines...
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%80v', 100)
