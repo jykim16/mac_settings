@@ -39,6 +39,9 @@ set nocompatible  " be iMproved, required
         "\ set shiftwidth=4
         " run python interpreter on selected lines
         xnoremap <leader>p :w !python<cr>
+        " highlight the 80th column of wide lines...
+        highlight ColorColumn ctermbg=magenta
+        call matchadd('ColorColumn', '\%80v', 100)
 
     " web languages
         autocmd BufNewFile,BufRead *.js,*.jsx,*.html,*.css
@@ -171,14 +174,3 @@ set nocompatible  " be iMproved, required
 :set mouse=n
 " auto-complete window for YouCompleteMe disappears
 let g:ycm_autoclose_preview_window_after_completion=1
-" OR ELSE use the filetype mechanism to select automatically...
-filetype on
-augroup PatchDiffHighlight
-    autocmd!
-    autocmd FileType  diff   syntax enable
-augroup END
-
-
-" highlight the 81st column of wide lines...
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%80v', 100)
