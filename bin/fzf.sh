@@ -1,36 +1,51 @@
 #!/bin/bash
-# vf [FUZZY PATTERN] - Open the selected file with the default editor
-#   - Bypass fuzzy finder if there's only one match (--select-1)
-#   - Exit if there's no match (--exit-0)
-# vf - fuzzy open with vim from anywhere
-# ex: vf word1 word2 ... (even part of a file name)
-fe() {
-  local files
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
-
+# fnotes - Open in notes directory fzf in notes directory
 fnotes() {
   main() {
+    #cd ~/Notes
     previous_file="$1"
     file_to_edit=`select_file $previous_file`
-  
+
     if [ -n "$file_to_edit" ] ; then
       vim "$file_to_edit"
       main "$file_to_edit"
     fi
   }
-  
+
+  select_file() {
+    given_file="$1"
+    find ~/Notes | fzf --preview="cat {}" --preview-window=right:70%:wrap --query="$given_file"
+  }
+
+  main ""
+}
+
+# fvi [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+# fvi - fuzzy open with vim from anywhere
+# ex: fvi word1 word2 ... (even part of a file name)
+fvi() {
+  main() {
+    previous_file="$1"
+    file_to_edit=`select_file $previous_file`
+
+    if [ -n "$file_to_edit" ] ; then
+      vim "$file_to_edit"
+      main "$file_to_edit"
+    fi
+  }
+
   select_file() {
     given_file="$1"
     fzf --preview="cat {}" --preview-window=right:70%:wrap --query="$given_file"
   }
-  
+
   main ""
 }
 
-# fd - cd to selected directory
-fd() {
+# fcd - cd to selected directory
+fcd() {
   local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&
