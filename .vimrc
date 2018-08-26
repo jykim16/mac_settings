@@ -23,6 +23,19 @@ set nocompatible  " be iMproved, required
         " :PluginSearch foo - searches for foo; append `!` to refresh local cache
         " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
+" ---Keymappings---
+        let mapleader = ","
+        " move current line up one line
+        nnoremap <C-j> :m .+1<CR>==
+        " move current line down one line
+        nnoremap <C-k> :m .-2<CR>==
+        " if +clipboard then copy to mac clipboard in visual selection
+        vmap <C-y> "*y
+        " if +clipboard then copy current word to mac clipboard
+        nnoremap <C-y> "*yiw
+        " if +clipboard then paste from mac clipboard from normal mode
+        nnoremap <C-p> "*p
+
 " ---Language---
     " default
         "expands tab to spaces
@@ -32,16 +45,17 @@ set nocompatible  " be iMproved, required
         set shiftwidth=4
 
     " python
-        "this is default
-        "autocmd FileType python
+        " run python interpreter on selected lines or whole file 
+        " use xnoremap to run in visual mode
+        noremap <leader>p :w !python<cr>
+        " highlight the 80th column of wide lines...
+        autocmd FileType python
+        \ highlight ColorColumn ctermbg=magenta ctermfg=black |
+        \ call matchadd('ColorColumn', '\%80v', 100)
+        " this is default
         "\ set tabstop=4 |
         "\ set softtabstop=4 |
         "\ set shiftwidth=4
-        " run python interpreter on selected lines
-        xnoremap <leader>p :w !python<cr>
-        " highlight the 80th column of wide lines...
-        highlight ColorColumn ctermbg=magenta
-        call matchadd('ColorColumn', '\%80v', 100)
 
     " web languages
         autocmd BufNewFile,BufRead *.js,*.jsx,*.html,*.css
@@ -115,19 +129,6 @@ set nocompatible  " be iMproved, required
         highlight ExtraWhitespace ctermbg=darkgreen
         match ExtraWhitespace /\s\+$/
 
-" ---Keymappings---
-        let mapleader = ","
-        " move current line up one line
-        nnoremap <C-j> :m .+1<CR>==
-        " move current line down one line
-        nnoremap <C-k> :m .-2<CR>==
-        " if +clipboard then copy to mac clipboard in visual selection
-        vmap <C-y> "*y
-        " if +clipboard then copy current word to mac clipboard
-        nnoremap <C-y> "*yiw
-        " if +clipboard then paste from mac clipboard from normal mode
-        nnoremap <C-p> "*p
-
 " ---Plugin Preferences---
     " NERDTREE preferences
         "show NERDTREE if enter vim without file
@@ -198,7 +199,3 @@ set nocompatible  " be iMproved, required
           \ 'z': 90
           \ }
 
-"Specific to home mac
-:set mouse=n
-" auto-complete window for YouCompleteMe disappears
-let g:ycm_autoclose_preview_window_after_completion=1
