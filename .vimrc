@@ -170,6 +170,32 @@ set nocompatible  " be iMproved, required
         " update sign when saving
         autocmd BufWritePost * GitGutter
 
+    " VIM-FUGITIVE preferences
+        " when using diffing, use vsplit as default
+        set diffopt+=vertical
+        " https://blog.afoolishmanifesto.com/posts/iterating-over-chunks-of-a-diff-in-vim/
+        command Gdiffs cexpr system('git diff \| diff-hunk-list')
+
+    " VIM-AIRLINE preferences
+        " inactive windows do not collapse
+        let g:airline_inactive_collapse = 0
+        " git hunk diff counts showing disabled or non-zero
+        "let g:airline#extensions#hunks#enabled = 0
+        let g:airline#extensions#hunks#non_zero_only = 1
+        function! AirLineLight()
+            "let g:airline_section_z = airline#section#create_right([''])
+            let g:airline_section_z = airline#section#create_right(['%l:%c'])
+            "let g:airline_section_b = airline#section#create(['branch'])
+        endfunction
+        autocmd Vimenter * call AirLineLight()
+        let g:airline#extensions#default#section_truncate_width = {
+          \ 'a': 60,
+          \ 'b': 50,
+          \ 'x': 90,
+          \ 'y': 90,
+          \ 'z': 90
+          \ }
+
 "Specific to home mac
 :set mouse=n
 " auto-complete window for YouCompleteMe disappears
