@@ -48,10 +48,10 @@ set nocompatible  " be iMproved, required
         " run python interpreter on selected lines or whole file 
         " use xnoremap to run in visual mode
         noremap <leader>p :w !python<cr>
+        " highlight the 80th column of wide lines...
         autocmd FileType python
         \ highlight ColorColumn ctermbg=magenta ctermfg=black |
         \ call matchadd('ColorColumn', '\%80v', 100)
-        " highlight the 80th column of wide lines...
         " this is default
         "\ set tabstop=4 |
         "\ set softtabstop=4 |
@@ -170,4 +170,30 @@ set nocompatible  " be iMproved, required
         nmap <Leader>g :GitGutterToggle<CR>
         " update sign when saving
         autocmd BufWritePost * GitGutter
+
+    " VIM-FUGITIVE preferences
+        " when using diffing, use vsplit as default
+        set diffopt+=vertical
+        " https://blog.afoolishmanifesto.com/posts/iterating-over-chunks-of-a-diff-in-vim/
+        command Gdiffs cexpr system('git diff \| diff-hunk-list')
+
+    " VIM-AIRLINE preferences
+        " inactive windows do not collapse
+        let g:airline_inactive_collapse = 0
+        " git hunk diff counts showing disabled or non-zero
+        "let g:airline#extensions#hunks#enabled = 0
+        let g:airline#extensions#hunks#non_zero_only = 1
+        function! AirLineLight()
+            "let g:airline_section_z = airline#section#create_right([''])
+            let g:airline_section_z = airline#section#create_right(['%l:%c'])
+            "let g:airline_section_b = airline#section#create(['branch'])
+        endfunction
+        autocmd Vimenter * call AirLineLight()
+        let g:airline#extensions#default#section_truncate_width = {
+          \ 'a': 60,
+          \ 'b': 50,
+          \ 'x': 90,
+          \ 'y': 90,
+          \ 'z': 90
+          \ }
 
