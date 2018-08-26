@@ -138,7 +138,7 @@ set nocompatible  " be iMproved, required
         " use :NERDTreeToggle if don't want to go to current file
         map <C-t> :NERDTreeFind <CR>
         " shows dotfiles
-        let NERDTreeShowHidden=1
+        " let NERDTreeShowHidden=1
 
     " AUTO-COMPLETE preferences
         " auto-complete window for YouCompleteMe disappears
