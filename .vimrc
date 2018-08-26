@@ -13,6 +13,8 @@ set nocompatible  " be iMproved, required
         Plugin 'airblade/vim-gitgutter'
         Plugin 'vim-airline/vim-airline'
         Plugin 'tpope/vim-fugitive'
+        Plugin 'benmills/vimux'
+        Plugin 'christoomey/vim-tmux-navigator'
 
         " All of your Plugins must be added before the following line
         call vundle#end()            " required
@@ -45,7 +47,7 @@ set nocompatible  " be iMproved, required
         set shiftwidth=4
 
     " python
-        " run python interpreter on selected lines or whole file 
+        " run python interpreter on selected lines or whole file
         " use xnoremap to run in visual mode
         noremap <leader>p :w !python<cr>
         " highlight the 80th column of wide lines...
@@ -138,7 +140,7 @@ set nocompatible  " be iMproved, required
         " use :NERDTreeToggle if don't want to go to current file
         map <C-t> :NERDTreeFind <CR>
         " shows dotfiles
-        " let NERDTreeShowHidden=1
+        let NERDTreeShowHidden=1
 
     " AUTO-COMPLETE preferences
         " auto-complete window for YouCompleteMe disappears
@@ -159,12 +161,13 @@ set nocompatible  " be iMproved, required
         nmap <Leader>t :Files<CR>
         nmap <Leader>f :Ag<CR>
         nmap <Leader>h :History<CR>
-        nmap <Leader>b :Buffers<CR>
+        nmap <Leader>B :Buffers<CR>
         let g:fzf_action = {
           \ 'ctrl-t': 'tab split',
           \ 'ctrl-s': 'split',
           \ 'ctrl-v': 'vsplit' }
         " Ag only searches file contents, not file names
+        " requires Ag
         command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
     " VIM-GITGUTTER preferences
@@ -177,7 +180,8 @@ set nocompatible  " be iMproved, required
         " when using diffing, use vsplit as default
         set diffopt+=vertical
         " https://blog.afoolishmanifesto.com/posts/iterating-over-chunks-of-a-diff-in-vim/
-        command Gdiffs cexpr system('git diff \| diff-hunk-list')
+        " requires diff-hunk-list in path
+        command! Gdiffs cexpr system('git diff \| diff-hunk-list')
 
     " VIM-AIRLINE preferences
         " inactive windows do not collapse
@@ -198,4 +202,22 @@ set nocompatible  " be iMproved, required
           \ 'y': 90,
           \ 'z': 90
           \ }
+
+    " VIMUX preferences
+        " Prompt for a command to run
+        map <leader>b :VimuxPromptCommand<CR>
+        " Run last command executed by RunVimTmuxCommand
+        map <leader>bb :VimuxRunLastCommand<CR>
+        " Inspect runner pane
+        map <leader>bbb :VimuxInspectRunner<CR>
+
+    " VIM-TMUX-NAVIGATOR
+        " remap navigation go from vim to tmux pane
+        let g:tmux_navigator_no_mappings = 1
+        nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
+        nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
+        nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
+        nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
+        " Disable tmux navigator when zooming the Vim pane
+        let g:tmux_navigator_disable_when_zoomed = 1
 
