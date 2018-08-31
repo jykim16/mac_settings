@@ -1,3 +1,4 @@
+" VIM CONFIG
 "install latest vim with `brew install vim --with-override-system-vi`
 set nocompatible  " be iMproved, required
 
@@ -15,6 +16,7 @@ set nocompatible  " be iMproved, required
         Plugin 'tpope/vim-fugitive'
         Plugin 'benmills/vimux'
         Plugin 'christoomey/vim-tmux-navigator'
+        Plugin 'junegunn/limelight.vim'
 
         " All of your Plugins must be added before the following line
         call vundle#end()            " required
@@ -29,8 +31,10 @@ set nocompatible  " be iMproved, required
         let mapleader = ","
         " move current line up one line
         nnoremap <C-j> :m .+1<CR>==
+        vnoremap <C-j> :m .+1<CR>==
         " move current line down one line
         nnoremap <C-k> :m .-2<CR>==
+        vnoremap <C-k> :m .-2<CR>==
         " if +clipboard then copy to mac clipboard in visual selection
         vmap <C-y> "*y
         " if +clipboard then copy current word to mac clipboard
@@ -114,7 +118,7 @@ set nocompatible  " be iMproved, required
         "set mouse=n
         "cursor selects vim position
         set mouse=a
-        :set ttymouse=xterm2
+        set ttymouse=xterm2
         " Change Color when entering Insert Mode
         autocmd InsertEnter * highlight  CursorLine ctermbg=Blue ctermfg=Black
         " Revert Color to default when leaving Insert Mode
@@ -142,16 +146,11 @@ set nocompatible  " be iMproved, required
         " shows dotfiles
         let NERDTreeShowHidden=1
 
-    " AUTO-COMPLETE preferences
+    " YCM preferences
         " auto-complete window for YouCompleteMe disappears
         let g:ycm_autoclose_preview_window_after_completion=1
         nnoremap g] :YcmCompleter GoTo<CR>
-        nnoremap gR :YcmCompleter GoToReferences<CR>
-
-    " VIM-MARKDOWN-PREVIEW preferences
-        " for vim-markdown-preview default browser and md visual with Grip
-        let vim_markdown_preview_github=1
-        let vim_markdown_preview_browser='Google Chrome'
+        nnoremap gr :YcmCompleter GoToReferences<CR>
 
     " FZF preferences
         " After install fzf with brew, enable fzf fuzzy search on vim
@@ -162,6 +161,9 @@ set nocompatible  " be iMproved, required
         nmap <Leader>f :Ag<CR>
         nmap <Leader>h :History<CR>
         nmap <Leader>B :Buffers<CR>
+        " fuzzy searches word under cursor
+        nnoremap ga :Ag <C-R><C-W><CR>
+        " change default mappings for splits
         let g:fzf_action = {
           \ 'ctrl-t': 'tab split',
           \ 'ctrl-s': 'split',
@@ -169,6 +171,11 @@ set nocompatible  " be iMproved, required
         " Ag only searches file contents, not file names
         " requires Ag
         command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+    " VIM-MARKDOWN-PREVIEW preferences
+        " for vim-markdown-preview default browser and md visual with Grip
+        let vim_markdown_preview_github=1
+        let vim_markdown_preview_browser='Google Chrome'
 
     " VIM-GITGUTTER preferences
         " use :GitGutterLineHighlightsToggle to highlight
@@ -203,6 +210,18 @@ set nocompatible  " be iMproved, required
           \ 'z': 90
           \ }
 
+    " LIMELIGHT preferences
+        " Color name (:help cterm-colors) or ANSI code
+        let g:limelight_conceal_ctermfg = 'gray'
+        let g:limelight_conceal_ctermfg = 240
+
+        " Color name (:help gui-colors) or RGB color
+        let g:limelight_conceal_guifg = 'DarkGray'
+        let g:limelight_conceal_guifg = '#777777'
+
+        " Default: 0.5
+        let g:limelight_default_coefficient = 0.7
+
     " VIMUX preferences
         " Prompt for a command to run
         map <leader>b :VimuxPromptCommand<CR>
@@ -211,7 +230,7 @@ set nocompatible  " be iMproved, required
         " Inspect runner pane
         map <leader>bbb :VimuxInspectRunner<CR>
 
-    " VIM-TMUX-NAVIGATOR
+    " VIM-TMUX-NAVIGATOR preferences
         " remap navigation go from vim to tmux pane
         let g:tmux_navigator_no_mappings = 1
         nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
